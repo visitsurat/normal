@@ -2,49 +2,113 @@
 <html lang="th">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>กำลังพาท่านเข้าสู่ระบบ...</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>เข้าสู่ระบบจองเยี่ยม...</title>
     <style>
-        body {
-            font-family: sans-serif;
+        /* โทนสีหลัก KTB Style */
+        :root { 
+            --ktb-primary: #2CC3F1; 
+            --ktb-bg: #ECF7FB; 
+            --ktb-dark: #002240; 
+        }
+        
+        body, html {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--ktb-bg);
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #ECF7FB;
-            color: #002240;
-            text-align: center;
+            color: var(--ktb-dark);
         }
-        .loader {
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #2CC3F1;
+        
+        /* กล่องการ์ดโชว์ข้อความต้อนรับ */
+        .redirect-card {
+            background-color: white;
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,34,64,0.1);
+            text-align: center;
+            width: 85%;
+            max-width: 400px;
+            border-top: 5px solid var(--ktb-primary);
+        }
+
+        /* ดีไซน์ตัวหมุน (Spinner) */
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #e0f3ff;
+            border-top: 5px solid var(--ktb-primary);
             border-radius: 50%;
-            width: 40px;
-            height: 40px;
             animation: spin 1s linear infinite;
             margin: 0 auto 20px auto;
         }
+
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+
+        .title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        /* ปุ่มเผื่อกรณีที่เบราว์เซอร์ลูกค้าไม่ยอม Redirect อัตโนมัติ */
+        .manual-btn {
+            background-color: var(--ktb-dark);
+            color: var(--ktb-primary);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: 0.3s;
+        }
+        .manual-btn:hover {
+            opacity: 0.9;
+        }
     </style>
+
     <script>
-        // เอาลิงก์ Web App ของ Google ของคุณมาใส่ตรงนี้แทนครับ
+        // ========================================================
+        // นำลิงก์ Web App (Exec) ของคุณมาวางในเครื่องหมายคำพูดด้านล่างนี้เลยครับ
+        // ========================================================
         var googleWebAppUrl = "https://script.google.com/macros/s/AKfycbw7W6in9TrxI7_Jpxyb84b7W0opSW5Lk7Mbs048j9B_bJHaAdOVf1tYh0JnSA5kbejwFQ/exec";
         
         window.onload = function() {
-            // สั่งให้เปลี่ยนหน้าต่างไปยังลิงก์ของ Google ทันที
-            window.location.replace(googleWebAppUrl);
+            // สั่งหน่วงเวลาให้โชว์หน้าต้อนรับนิดนึง (ประมาณ 1.5 วินาที) จะได้ดูสมูท
+            setTimeout(function() {
+                // คำสั่ง replace จะพาหน้าเว็บกระโดดไปเลย โดยไม่ทิ้งประวัติในปุ่ม Back (กันญาติกด Back กลับมาเจอหน้าขาว)
+                window.location.replace(googleWebAppUrl);
+            }, 1500); 
         };
     </script>
 </head>
 <body>
-    <div>
-        <div class="loader"></div>
-        <h3>กำลังนำท่านเข้าสู่ระบบจองเยี่ยม...</h3>
-        <p>หากระบบไม่พาไปอัตโนมัติ <a href="#" onclick="window.location.href=googleWebAppUrl; return false;">คลิกที่นี่</a></p>
+
+    <div class="redirect-card">
+        <div class="spinner"></div>
+        <div class="title">กำลังเข้าสู่ระบบจองเยี่ยม</div>
+        <div class="subtitle">ระบบกำลังพาท่านเข้าสู่เครือข่ายอย่างปลอดภัย<br>กรุณารอสักครู่...</div>
+        
+        <!-- ซ่อนปุ่มนี้ไว้เผื่อฉุกเฉินเท่านั้น -->
+        <a href="https://script.google.com/macros/s/AKfycbw7W6in9TrxI7_Jpxyb84b7W0opSW5Lk7Mbs048j9B_bJHaAdOVf1tYh0JnSA5kbejwFQ/exec" class="manual-btn">คลิกที่นี่หากระบบไม่พาไปอัตโนมัติ</a>
     </div>
+
 </body>
 </html>
