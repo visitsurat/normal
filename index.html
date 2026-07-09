@@ -1,4 +1,66 @@
 <!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>กำลังพาท่านเข้าสู่ระบบ...</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #ECF7FB;
+            color: #002240;
+            text-align: center;
+        }
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #2CC3F1;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+    <script>
+        // เอาลิงก์ Web App ของ Google ของคุณมาใส่ตรงนี้แทนครับ
+        var googleWebAppUrl = "https://script.google.com/macros/s/AKfycbw7W6in9TrxI7_Jpxyb84b7W0opSW5Lk7Mbs048j9B_bJHaAdOVf1tYh0JnSA5kbejwFQ/exec";
+        
+        window.onload = function() {
+            // สั่งให้เปลี่ยนหน้าต่างไปยังลิงก์ของ Google ทันที
+            window.location.replace(googleWebAppUrl);
+        };
+    </script>
+</head>
+<body>
+    <div>
+        <div class="loader"></div>
+        <h3>กำลังนำท่านเข้าสู่ระบบจองเยี่ยม...</h3>
+        <p>หากระบบไม่พาไปอัตโนมัติ <a href="#" onclick="window.location.href=googleWebAppUrl; return false;">คลิกที่นี่</a></p>
+    </div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
 
 <html>
    <head>
