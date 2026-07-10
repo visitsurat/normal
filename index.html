@@ -2,113 +2,89 @@
 <html lang="th">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>เข้าสู่ระบบจองเยี่ยม...</title>
+    <!-- [สำคัญที่สุด] บรรทัดนี้คือเวทมนตร์ที่จะสั่ง Chrome ให้ขยายจอ 100% -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>ระบบจองเยี่ยม-ห้องเยี่ยมนอก-หน้าเรือนจำ-เรือนจำกลางสุราษฎร์ธานี</title>
     <style>
-        /* โทนสีหลัก KTB Style */
-        :root { 
-            --ktb-primary: #2CC3F1; 
-            --ktb-bg: #ECF7FB; 
-            --ktb-dark: #002240; 
-        }
-        
-        body, html {
-            height: 100%;
+        /* ล้างค่าขอบจอทั้งหมดให้เหลือ 0 */
+        html, body {
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--ktb-bg);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: var(--ktb-dark);
+            width: 100%;
+            height: 100%;
+            overflow: hidden; /* ซ่อนแถบเลื่อนของหน้าเว็บหลัก */
+            background-color: #ECF7FB; /* สีพื้นหลังกลืนกับเว็บจริง */
         }
         
-        /* กล่องการ์ดโชว์ข้อความต้อนรับ */
-        .redirect-card {
-            background-color: white;
-            padding: 40px 30px;
-            border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(0,34,64,0.1);
-            text-align: center;
-            width: 85%;
-            max-width: 400px;
-            border-top: 5px solid var(--ktb-primary);
+        /* สั่งให้ iframe ขยายเต็ม 100% ของจอมือถือเป๊ะๆ */
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
         }
 
-        /* ดีไซน์ตัวหมุน (Spinner) */
+        /* ทำฉากโหลด (Loader) สวยๆ คั่นเวลารอ Google Apps Script ทำงาน */
+        #loader-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #ECF7FB;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
         .spinner {
             width: 50px;
             height: 50px;
             border: 5px solid #e0f3ff;
-            border-top: 5px solid var(--ktb-primary);
+            border-top: 5px solid #2CC3F1;
             border-radius: 50%;
             animation: spin 1s linear infinite;
-            margin: 0 auto 20px auto;
+            margin-bottom: 20px;
         }
-
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
-
-        .title {
+        .loading-text {
+            font-family: sans-serif;
+            color: #002240;
+            font-weight: bold;
             font-size: 1.2rem;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-
-        .subtitle {
-            font-size: 0.9rem;
-            color: #666;
-            margin-bottom: 20px;
-            line-height: 1.5;
-        }
-
-        /* ปุ่มเผื่อกรณีที่เบราว์เซอร์ลูกค้าไม่ยอม Redirect อัตโนมัติ */
-        .manual-btn {
-            background-color: var(--ktb-dark);
-            color: var(--ktb-primary);
-            border: none;
-            padding: 10px 20px;
-            border-radius: 10px;
-            font-size: 0.9rem;
-            font-weight: bold;
-            cursor: pointer;
-            text-decoration: none;
-            display: inline-block;
-            transition: 0.3s;
-        }
-        .manual-btn:hover {
-            opacity: 0.9;
         }
     </style>
-
-    <script>
-        // ========================================================
-        // นำลิงก์ Web App (Exec) ของคุณมาวางในเครื่องหมายคำพูดด้านล่างนี้เลยครับ
-        // ========================================================
-        var googleWebAppUrl = "https://script.google.com/macros/s/AKfycbz8b3n3BxXYtVg51YHdXc9zD6oQfJbqGDIrra02eL-_cp4lPCF8yNrf8f0ez701CLh6oA/exec";
-        
-        window.onload = function() {
-            // สั่งหน่วงเวลาให้โชว์หน้าต้อนรับนิดนึง (ประมาณ 1.5 วินาที) จะได้ดูสมูท
-            setTimeout(function() {
-                // คำสั่ง replace จะพาหน้าเว็บกระโดดไปเลย โดยไม่ทิ้งประวัติในปุ่ม Back (กันญาติกด Back กลับมาเจอหน้าขาว)
-                window.location.replace(googleWebAppUrl);
-            }, 1500); 
-        };
-    </script>
 </head>
 <body>
 
-    <div class="redirect-card">
+    <!-- ฉากโหลด (จะหายไปเมื่อเว็บตัวจริงโหลดเสร็จ) -->
+    <div id="loader-overlay">
         <div class="spinner"></div>
-        <div class="title">กำลังเข้าสู่ระบบจองเยี่ยม</div>
-        <div class="subtitle">ระบบกำลังพาท่านเข้าสู่เครือข่ายอย่างปลอดภัย<br>กรุณารอสักครู่...</div>
-        
-        <!-- ซ่อนปุ่มนี้ไว้เผื่อฉุกเฉินเท่านั้น -->
-        <a href="https://script.google.com/macros/s/AKfycbz8b3n3BxXYtVg51YHdXc9zD6oQfJbqGDIrra02eL-_cp4lPCF8yNrf8f0ez701CLh6oA/exec" class="manual-btn">คลิกที่นี่หากระบบไม่พาไปอัตโนมัติ</a>
+        <div class="loading-text">กำลังโหลดระบบจองเยี่ยม...</div>
     </div>
 
+    <!-- ฝังลิงก์ Google Apps Script ไว้ข้างในนี้ -->
+    <iframe 
+        id="appFrame"
+        src="https://script.google.com/macros/s/AKfycbz8b3n3BxXYtVg51YHdXc9zD6oQfJbqGDIrra02eL-_cp4lPCF8yNrf8f0ez701CLh6oA/exec" 
+        allow="camera; microphone"
+        onload="hideLoader()">
+    </iframe>
+
+    <script>
+        // ฟังก์ชันซ่อนฉากโหลดเมื่อเว็บใน iframe โหลดเสร็จสมบูรณ์
+        function hideLoader() {
+            const loader = document.getElementById('loader-overlay');
+            loader.style.opacity = '0';
+            setTimeout(() => {
+                loader.style.display = 'none';
+            }, 500);
+        }
+    </script>
 </body>
 </html>
